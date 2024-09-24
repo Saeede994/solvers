@@ -34,6 +34,7 @@
     Vol.ref() = mesh.V();
     Vol.write();
 
+    #include "dimensionedScalar.H"
     Info<< "Writing continuityResidual\n" << endl;
     volScalarField continuityResidual
     (
@@ -46,7 +47,7 @@
             IOobject::AUTO_WRITE    // Automatically write the field to the time directories
         ),
         mesh,  // The mesh to initialize the field
-        dimensionedScalar("zero", dimless, 0.0)  // Initial value of 0
+        dimensionedScalar("zero", dimensions(0, 0, -1, 0, 0, 0, 0), 0.0) // Initial value of 0
     );
     continuityResidual.write();
 
