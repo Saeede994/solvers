@@ -100,8 +100,9 @@ int main(int argc, char *argv[])
         }
 	laminarTransport.correct();
 	    // Calculate the continuity residual
-		continuityResidual = mag(fvc::div(phi)); // Update the continuity residual
+		
         turbulence->correct();
+		continuityResidual = mag(fvc::div(U)); // Update the continuity residual
         runTime.write();
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
