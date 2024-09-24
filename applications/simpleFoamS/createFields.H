@@ -34,7 +34,11 @@
     Vol.ref() = mesh.V();
     Vol.write();
 
-    #include "dimensionedScalar.H"
+    #include "dimensionedTypes.H" // Include necessary header
+
+// Create a dimensioned scalar with an inverse time dimension
+    dimensionedScalar myInverseTimeQuantity("myInverseTime", dimensions(0, 0, -1, 0, 0, 0, 0), 0.0);
+
     Info<< "Writing continuityResidual\n" << endl;
     volScalarField continuityResidual
     (
@@ -47,7 +51,7 @@
             IOobject::AUTO_WRITE    // Automatically write the field to the time directories
         ),
         mesh,  // The mesh to initialize the field
-        dimensionedScalar("zero", dimensions(0, 0, -1, 0, 0, 0, 0), 0.0) // Initial value of 0
+        dimensionedScalar("zero", myInverseTime, 0.0) // Initial value of 0
     );
     continuityResidual.write();
 
