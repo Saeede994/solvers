@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 	    // Calculate the continuity residual
 		
         turbulence->correct();
-		continuityResidual = mag(fvc::div(U,phi)); // Update the continuity residual
+		continuityResidual = mag(fvc::div(phi, U)); // Update the continuity residual
         runTime.write();
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
