@@ -90,21 +90,7 @@ int main(int argc, char *argv[])
 	        }
 	    }
 	    #include "continuityErrs.H"
-// Calculate and write continuity residual
-		volScalarField continuityResidual
-		(
-			IOobject
-			(
-				"continuityResidual",
-				runTime.timeName(),
-				mesh,
-				IOobject::READ_IF_PRESENT,
-				IOobject::AUTO_WRITE
-			),
-			mag(fvc::div(phi)) // |div(phi)| to get the residual of continuity
-		);
 
-		continuityResidual.write();
 	    // Explicitly relax pressure for momentum corrector
 	    p.relax();
 	    // Momentum corrector
@@ -113,6 +99,8 @@ int main(int argc, char *argv[])
 	    fvOptions.correct(U);
         }
 	laminarTransport.correct();
+	    // Calculate the continuity residual
+		continuityResidual = mag(fvc::div(phi)); // Update the continuity residual
         turbulence->correct();
         runTime.write();
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"

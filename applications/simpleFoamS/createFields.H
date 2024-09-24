@@ -34,6 +34,20 @@
     Vol.ref() = mesh.V();
     Vol.write();
 
+    Info<< "Writing continuityResidual\n" << endl;
+    volScalarField continuityResidual
+    (
+        IOobject
+    (
+        "continuityResidual",  // Name of the output file
+        runTime.timeName(),     // Directory to save the field in
+        mesh,                   // The mesh for the field
+        IOobject::NO_READ,      // Do not read from file
+        IOobject::AUTO_WRITE    // Automatically write the field to the time directories
+    ),
+    mag(fvc::div(phi))           // Calculate the residual as |div(phi)|, where phi = velocity flux
+    );
+
     Info<< "Reading field p\n" << endl;
     volScalarField p
     (
