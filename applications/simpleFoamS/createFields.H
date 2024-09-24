@@ -34,21 +34,7 @@
     Vol.ref() = mesh.V();
     Vol.write();
 
-    Info<< "Writing continuityResidual\n" << endl;
-    volScalarField continuityResidual
-    (
-        IOobject
-        (
-            "continuityResidual",  // Name of the output file
-            runTime.timeName(),     // Directory to save the field in
-            mesh,                   // The mesh for the field
-            IOobject::NO_READ,      // Do not read from file
-            IOobject::AUTO_WRITE    // Automatically write the field to the time directories
-        ),
-        mesh,  // Provide the mesh to initialize the field
-        dimensionedScalar("zero", dimensionSet(0,0,0,0,0), 0.0)  // Initialize to zero
-    );
-    continuityResidual.write();
+
 
     Info<< "Reading field p\n" << endl;
     volScalarField p
