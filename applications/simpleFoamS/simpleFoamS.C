@@ -90,6 +90,21 @@ int main(int argc, char *argv[])
 	        }
 	    }
 	    #include "continuityErrs.H"
+// Calculate and write continuity residual
+		volScalarField continuityResidual
+		(
+			IOobject
+			(
+				"continuityResidual",
+				runTime.timeName(),
+				mesh,
+				IOobject::READ_IF_PRESENT,
+				IOobject::AUTO_WRITE
+			),
+			mag(fvc::div(phi)) // |div(phi)| to get the residual of continuity
+		);
+
+		continuityResidual.write();
 	    // Explicitly relax pressure for momentum corrector
 	    p.relax();
 	    // Momentum corrector
