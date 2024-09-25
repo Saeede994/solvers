@@ -51,6 +51,23 @@
     );
     continuityResidual.write();
 
+    Info<< "Writing U_phi\n" << endl;
+    
+    volScalarField U_phi
+    (
+        IOobject
+        (
+            "U_phi",  // Name of the output file
+            runTime.timeName(),     // Directory to save the field in
+            mesh,                   // The mesh for the field
+            IOobject::NO_READ,      // Do not read from file
+            IOobject::AUTO_WRITE    // Automatically write the field to the time directories
+        ),
+        mesh,  // The mesh to initialize the field
+        dimensionedScalar("zero", dimensionSet(0, 1, -2, 0, 0, 0, 0), 0.0) // Initial value of 0
+    );
+    U_phi.write();
+
 
 
     Info<< "Reading field p\n" << endl;
